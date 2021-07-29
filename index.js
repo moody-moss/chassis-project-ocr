@@ -79,4 +79,8 @@ app.get('/value', (req, res) => {
 //     PORT,
 //     () => console.log(`alive at: http://localhost:${PORT}`)
 // )
-app.listen(process.env.PORT || 2000)
+//app.listen(process.env.PORT || 2000)
+const server = app.listen(process.env.PORT || 2000, () => {
+    const port = server.address().port;
+    console.log(`Express is working on port ${port}`);
+  });
