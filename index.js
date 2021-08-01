@@ -1,3 +1,5 @@
+// Error 503: https://stackoverflow.com/questions/43596835/heroku-is-giving-me-a-503-when-trying-to-open-my-web-app-works-on-local-host
+
 // Import statement
 const helmet = require('helmet')
 const express = require('express')
@@ -20,8 +22,6 @@ app.use(express.text())
 app.use(cors({ origin: '*' }))
 app.options('*', cors()) // enable preflight across-the-board --> include bfeore other route
 
-app.use('/static', express.static(path.join(__dirname, 'public')))
-
 app.get('/tea', (req, res) => {
     //res.sendFile(process.cwd() + '/index.html')
     res.send({
@@ -29,6 +29,10 @@ app.get('/tea', (req, res) => {
     })
 })
 
+// Setting middleware
+app.use(express.static('public')) // Serve resources from public folder
+
+app.use('/images',express.static(path.join(__dirname, '/public')))
 
 // Post base64 string
 app.post('/post-base64', (req, res) => {
@@ -53,12 +57,25 @@ app.post('/post-base64', (req, res) => {
     writeStream.end()
 
     // Save img as 'label.jpeg'
-    fs.writeFileSync('label.jpeg', buffer)
+    fs.writeFileSync(__dirname + '/public/label.jpeg', buffer)
+
+    res.send({
+        imgURL: `http://localhost:1000/label.jpeg`
+    })
+
 })
+
+var options = {
+    apikey: '2065cf6e9188957',
+    language: 'eng',
+    imageFormat: 'image/png',
+    isOverlayRequired: true,
+    OCREngine: 2
+}
 
 app.get('/value', (req, res) => {
 
-    const imageFilePath = 'label.jpeg'
+    const imageFilePath = `label.jpeg`
     // OCR
     ocrSpaceApi.parseImageFromLocalFile(imageFilePath, options)
         .then((ParsedResults) => {
