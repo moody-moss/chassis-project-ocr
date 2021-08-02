@@ -58,11 +58,6 @@ app.post('/post-base64', (req, res) => {
 
     // Save img as 'label.jpeg'
     fs.writeFileSync(__dirname + '/public/label.jpeg', buffer)
-
-    res.send({
-        imgURL: `http://localhost:1000/label.jpeg`
-    })
-
 })
 
 var options = {
@@ -75,9 +70,9 @@ var options = {
 
 app.get('/value', (req, res) => {
 
-    const imageFilePath = `label.jpeg`
+    //const imageFilePath = `label.jpeg`
     // OCR
-    ocrSpaceApi.parseImageFromLocalFile(imageFilePath, options)
+    ocrSpaceApi.parseImageFromLocalFile('https://qwe-1.herokuapp.com/label.jpeg', options)
         .then((ParsedResults) => {
             console.log('PARSED RESULT --: ', ParsedResults.parsedText)
             res.send({
@@ -92,11 +87,6 @@ app.get('/value', (req, res) => {
         })
 })
 
-// app.listen(
-//     PORT,
-//     () => console.log(`alive at: http://localhost:${PORT}`)
-// )
-//app.listen(process.env.PORT || 2000)
 const server = app.listen(process.env.PORT || 2000, () => {
     const port = server.address().port;
     console.log(`Express is working on port ${port}`);
