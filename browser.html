@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+
+<body>
+
+    <img id='img' src='#'>Test Image</img>
+    <p id="result" class="result"></p>
+
+    <script type="text/javascript" src="/zxing-umd-browser.js"></script>
+    <script type="text/javascript">
+
+        // ex --------------------------------------------
+        const SNval = (value) => {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "SN_value": value
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("http://localhost:8080/SNvalue", requestOptions)
+                .then(response => response.json())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+        }
+
+
+        //-----------------------------------------------------------------------------
+
+        window.addEventListener('load', function () {
+
+            const codeReader = new ZXing.BrowserDatamatrixCodeReader()
+            console.log('ZXing code reader initialized');
+            const resultSN = document.getElementById('result')
+            const img = document.getElementById('img')
+            const decodeFun = (e) => {
+
+
+
+                // GET-IMAGE API
+                // var requestOptions = {
+                //     method: 'GET',
+                //     redirect: 'follow'
+                // };
+                // fetch("http://localhost:8080/imgURL", requestOptions)
+                //     .then(response => response.json())
+                //     .then(result => {
+                //         console.log(result["SNimage_URL"])
+
+                //         console.log(`result["SNimage_URL"]: ${result["SNimage_URL"]}`)
+                        //result["SNimage_URL"] = img.src
+                        //img.src = JSON.parse(result["SNimage_URL"])
+                        img.src = `https://qwe-1.herokuapp.com/label.jpeg`
+                        //console.log(`img.src ${img.src}`)
+
+                        // DECODE DATA MATRIX
+                        codeReader.decodeFromImage(undefined, img.src)
+                            .then(result => {
+                                console.log(result)
+                                //resultSN.textContent = result.text
+                                SNval(result.text)
+                                //console.log(`Started decode for image from ${img.src}`)
+                            })
+                            .catch(err => {
+                                console.error(err);
+                                resultSN.textContent = err
+                                SNval(err)
+                            });
+
+
+
+                    // })
+                    // .catch(error => console.log('error', error))
+
+            };
+
+            //document.getElementById('button').addEventListener('click', decodeFun)
+            //window.onload(decodeFun)
+            decodeFun()
+
+        })
+
+    </script>
+</body>
+
+</html>
