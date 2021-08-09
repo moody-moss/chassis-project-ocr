@@ -3,13 +3,15 @@
 
 <body>
 
-    <img id='img' src='#'>Test Image</img>
+    <img id='img' src='./public/data-matrix.jpg'>Test Image</img>
     <p id="result" class="result"></p>
 
-    <script type="text/javascript" src="/zxing-umd-browser.js"></script>
+    <!-- https://unpkg.com/@zxing/library@0.18.5/umd/index.js -->
+    <script type="text/javascript" src="https://unpkg.com/@zxing/library@0.18.5/umd/index.js"></script>
     <script type="text/javascript">
 
         // ex --------------------------------------------
+        /*
         const SNval = (value) => {
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -30,7 +32,7 @@
                 .then(result => console.log(result))
                 .catch(error => console.log('error', error));
         }
-
+*/
 
         //-----------------------------------------------------------------------------
 
@@ -57,21 +59,21 @@
                 //         console.log(`result["SNimage_URL"]: ${result["SNimage_URL"]}`)
                         //result["SNimage_URL"] = img.src
                         //img.src = JSON.parse(result["SNimage_URL"])
-                        img.src = `https://qwe-1.herokuapp.com/label.jpeg`
+                        //img.src = 'https://www.camcode.com/wp-content/uploads/2012/01/DataMatrixCode1-1.jpg'
                         //console.log(`img.src ${img.src}`)
 
                         // DECODE DATA MATRIX
-                        codeReader.decodeFromImage(undefined, img.src)
+                        codeReader.decodeFromImage(img)
                             .then(result => {
                                 console.log(result)
                                 //resultSN.textContent = result.text
-                                SNval(result.text)
+                                //SNval(result.text)
                                 //console.log(`Started decode for image from ${img.src}`)
                             })
                             .catch(err => {
                                 console.error(err);
-                                resultSN.textContent = err
-                                SNval(err)
+                                //resultSN.textContent = err
+                                //SNval(err)
                             });
 
 

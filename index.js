@@ -60,6 +60,10 @@ app.post('/post-base64', (req, res) => {
     fs.writeFileSync(__dirname + '/public/label.jpeg', buffer)
 })
 
+app.get('/zxing-value', (req, res) => {
+    res.sendFile(process.cwd() + '/browser.html')
+})
+
 var options = {
     apikey: '2065cf6e9188957',
     language: 'eng',
