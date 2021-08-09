@@ -60,8 +60,10 @@ app.post('/post-base64', (req, res) => {
     fs.writeFileSync(__dirname + '/public/label.jpeg', buffer)
 })
 
+app.use('/static',express.static(path.join(__dirname, '/')))
+
 app.get('/zxing-value', (req, res) => {
-    res.sendFile(process.cwd() + '/browser.html')
+    res.sendFile(process.cwd() + '/index.html')
 })
 
 var options = {
