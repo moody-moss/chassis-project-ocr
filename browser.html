@@ -3,36 +3,12 @@
 
 <body>
 
-    <img id='img' src='./public/data-matrix.jpg'>Test Image</img>
-    <p id="result" class="result"></p>
+    <img id='img' crossorigin="anonymous" src='https://qwe-1.herokuapp.com/data-matrix.jpg'>Test Image</img>
+    <p id="result" class="result"> Result </p>
 
     <!-- https://unpkg.com/@zxing/library@0.18.5/umd/index.js -->
     <script type="text/javascript" src="https://unpkg.com/@zxing/library@0.18.5/umd/index.js"></script>
     <script type="text/javascript">
-
-        // ex --------------------------------------------
-        /*
-        const SNval = (value) => {
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-
-            var raw = JSON.stringify({
-                "SN_value": value
-            });
-
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-
-            fetch("http://localhost:8080/SNvalue", requestOptions)
-                .then(response => response.json())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
-        }
-*/
 
         //-----------------------------------------------------------------------------
 
@@ -44,42 +20,18 @@
             const img = document.getElementById('img')
             const decodeFun = (e) => {
 
+                // DECODE DATA MATRIX
+                codeReader.decodeFromImage(img)
+                    .then(result => {
+                        console.log(result)
+                        resultSN.textContent = result.text
+                        //console.log(`Started decode for image from ${img.src}`)
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        resultSN.textContent = err
+                    });
 
-
-                // GET-IMAGE API
-                // var requestOptions = {
-                //     method: 'GET',
-                //     redirect: 'follow'
-                // };
-                // fetch("http://localhost:8080/imgURL", requestOptions)
-                //     .then(response => response.json())
-                //     .then(result => {
-                //         console.log(result["SNimage_URL"])
-
-                //         console.log(`result["SNimage_URL"]: ${result["SNimage_URL"]}`)
-                        //result["SNimage_URL"] = img.src
-                        //img.src = JSON.parse(result["SNimage_URL"])
-                        //img.src = 'https://www.camcode.com/wp-content/uploads/2012/01/DataMatrixCode1-1.jpg'
-                        //console.log(`img.src ${img.src}`)
-
-                        // DECODE DATA MATRIX
-                        codeReader.decodeFromImage(img)
-                            .then(result => {
-                                console.log(result)
-                                //resultSN.textContent = result.text
-                                //SNval(result.text)
-                                //console.log(`Started decode for image from ${img.src}`)
-                            })
-                            .catch(err => {
-                                console.error(err);
-                                //resultSN.textContent = err
-                                //SNval(err)
-                            });
-
-
-
-                    // })
-                    // .catch(error => console.log('error', error))
 
             };
 

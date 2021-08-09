@@ -60,7 +60,7 @@ app.post('/post-base64', (req, res) => {
     fs.writeFileSync(__dirname + '/public/label.jpeg', buffer)
 })
 
-app.use('/static',express.static(path.join(__dirname, '/')))
+app.use('/static',express.static(path.join(__dirname, '/'))) //https://qwe-1.herokuapp.com/static/browser.html
 
 app.get('/zxing-value', (req, res) => {
     res.sendFile(process.cwd() + '/index.html')
