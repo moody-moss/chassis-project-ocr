@@ -1,15 +1,21 @@
 <!doctype html>
 <html>
 
+<head>
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://qwe-1.herokuapp.com/static/zxing-umd-browser.js">
+</head>
+
 <body>
 
     <img id='img' crossorigin='anonymous' src='https://qwe-1.herokuapp.com/data-matrix.jpg'></img>
     <p id='result' class='result'> Result </p>
 
+
     <!-- https://unpkg.com/@zxing/library@0.18.5/umd/index.js -->
     <!-- https://qwe-1.herokuapp.com/static/zxing-umd-browser.js -->
-    <script type='text/javascript' src='https://qwe-1.herokuapp.com/static/zxing-umd-browser.js' ></script>
-    <script type='text/javascript'>
+    <script type='text/javascript' src='https://qwe-1.herokuapp.com/static/zxing-umd-browser.js'></script>
+    <script>
 
         //-----------------------------------------------------------------------------
 
