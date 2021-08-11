@@ -57,7 +57,7 @@ app.post('/post-base64', (req, res) => {
     writeStream.end()
 
     // Save img as 'label.jpeg'
-    fs.writeFileSync(__dirname + '/public/label.jpg', buffer)
+    fs.writeFileSync(__dirname + '/public/label.jpeg', buffer)
 })
 
 app.use('/static',express.static(path.join(__dirname, '/'))) //https://qwe-1.herokuapp.com/static/browser.html
