@@ -41,6 +41,7 @@ app.post('/post-base64', (req, res) => {
     let strBase64 = req.body
     console.log(strBase64)
 
+    /*
     // Convert base64 --> img.jpeg
     let buffer = Buffer.from(strBase64, 'base64')
     console.log(buffer)
@@ -56,14 +57,29 @@ app.post('/post-base64', (req, res) => {
 
     writeStream.end()
 
+    */
+
     // Save img as 'label.jpeg'
-    fs.writeFileSync(__dirname + '/public/label.jpeg', buffer)
+    //fs.writeFileSync(__dirname + '/public/label.jpeg', buffer)
+
+    fs.writeFile(__dirname +'/public/out.jpeg', strBase64, 'base64', (err, data) => {
+        if (err) {
+            console.log('err', err)
+            res.send({
+                errorSendFail: err
+            })
+        }
+
+        console.log('success')
+        
+    })
+
 })
 
 app.use('/static',express.static(path.join(__dirname, '/'))) //https://qwe-1.herokuapp.com/static/browser.html
 
 app.get('/zxing-value', (req, res) => {
-    res.sendFile(process.cwd() + '/index.html')
+    res.sendFile(process.cwd() + '/browser.html')
 })
 
 var options = {
