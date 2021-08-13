@@ -96,7 +96,7 @@ app.get('/value', (req, res) => {
 
     const imageFilePath = `/public/out.jpeg`
     // OCR
-    ocrSpaceApi.parseImageFromLocalFile('', options)
+    ocrSpaceApi.parseImageFromLocalFile(imageFilePath, options)
         .then((ParsedResults) => {
             console.log('PARSED RESULT --: ', ParsedResults.parsedText)
             res.send({
