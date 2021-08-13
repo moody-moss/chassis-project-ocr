@@ -12,7 +12,6 @@ const ocrSpaceApi = require('ocr-space-api')
 // const PORT = 2000
 
 const app = express()
-app.use(express.json())
 
 app.use(helmet()) // Security
 app.use(compression()) // compress HTTP request (compress all routes) [reduce the time required for the client to get and load the page from server]
@@ -92,9 +91,10 @@ var options = {
     OCREngine: 2
 }
 
+app.use(express.json())
 app.get('/value', (req, res) => {
 
-    const imageFilePath = `/public/out.jpeg`
+    const imageFilePath = `https://qwe-1.herokuapp.com/out.jpeg`
     // OCR
     ocrSpaceApi.parseImageFromLocalFile(imageFilePath, options)
         .then((ParsedResults) => {
