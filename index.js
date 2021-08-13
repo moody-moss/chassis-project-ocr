@@ -66,12 +66,14 @@ app.post('/post-base64', (req, res) => {
         if (err) {
             console.log('err', err)
             res.send({
-                errorSendFail: err
+                sendFailStatus: err
             })
         }
 
         console.log('success')
-        
+        res.send({
+            sendFailStatus: 'succeed!'
+        })
     })
 
 })
