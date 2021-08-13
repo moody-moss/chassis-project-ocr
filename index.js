@@ -17,7 +17,7 @@ app.use(express.json())
 app.use(helmet()) // Security
 app.use(compression()) // compress HTTP request (compress all routes) [reduce the time required for the client to get and load the page from server]
 
-app.use(express.text())
+app.use(express.text({limit: '50mb'}))
 
 app.use(cors({ origin: '*' }))
 app.options('*', cors()) // enable preflight across-the-board --> include bfeore other route
