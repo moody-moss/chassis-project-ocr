@@ -94,9 +94,9 @@ var options = {
 
 app.get('/value', (req, res) => {
 
-    //const imageFilePath = `label.jpeg`
+    const imageFilePath = `/public/out.jpeg`
     // OCR
-    ocrSpaceApi.parseImageFromLocalFile('https://qwe-1.herokuapp.com/out.jpeg', options)
+    ocrSpaceApi.parseImageFromLocalFile('', options)
         .then((ParsedResults) => {
             console.log('PARSED RESULT --: ', ParsedResults.parsedText)
             res.send({
