@@ -8,6 +8,7 @@ const cors = require('cors')
 const fs = require('fs')
 const path = require('path')
 const ocrSpaceApi = require('ocr-space-api')
+const zxing = require('./zxing-umd-browser.js')
 
 // const PORT = 2000
 
@@ -16,7 +17,7 @@ const app = express()
 app.use(helmet()) // Security
 app.use(compression()) // compress HTTP request (compress all routes) [reduce the time required for the client to get and load the page from server]
 
-app.use(express.text({limit: '50mb'}))
+app.use(express.text({ limit: '50mb' }))
 
 app.use(cors({ origin: '*' }))
 app.options('*', cors()) // enable preflight across-the-board --> include bfeore other route
@@ -31,7 +32,7 @@ app.get('/tea', (req, res) => {
 // Setting middleware
 app.use(express.static('public')) // Serve resources from public folder
 
-app.use('/images',express.static(path.join(__dirname, '/public')))
+app.use('/images', express.static(path.join(__dirname, '/public')))
 
 // Post base64 string
 app.post('/post-base64', (req, res) => {
@@ -58,10 +59,8 @@ app.post('/post-base64', (req, res) => {
 
     */
 
-    // Save img as 'label.jpeg'
-    //fs.writeFileSync(__dirname + '/public/label.jpeg', buffer)
-
-    fs.writeFile(__dirname +'/public/out.jpeg', strBase64, 'base64', (err, data) => {
+    // Save img as 'label.jpeg'/'out.jpeg'
+    fs.writeFile(__dirname + '/public/out.jpeg', strBase64, 'base64', (err, data) => {
         if (err) {
             console.log('err', err)
             res.send({
@@ -77,7 +76,7 @@ app.post('/post-base64', (req, res) => {
 
 })
 
-app.use('/static',express.static(path.join(__dirname, '/'))) //https://qwe-1.herokuapp.com/static/browser.html
+app.use('/static', express.static(path.join(__dirname, '/'))) //https://qwe-1.herokuapp.com/static/browser.html
 
 app.get('/zxing-value', (req, res) => {
     res.sendFile(process.cwd() + '/browser.html')
@@ -111,7 +110,20 @@ app.get('/value', (req, res) => {
         })
 })
 
+app.get('/data-matrix', (req, res) => {
+    const codeReader = new zxing.BrowserDatamatrixCodeReader()
+    console.log('ZXing code reader initialized')
+
+    codeReader.decodeFromImage()
+        .then(result => {
+            console.log(result)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+})
+
 const server = app.listen(process.env.PORT || 2000, () => {
     const port = server.address().port;
     console.log(`Express is working on port ${port}`);
-  });
+});
