@@ -64,13 +64,15 @@ app.post('/post-base64', (req, res) => {
         if (err) {
             console.log('err', err)
             res.send({
-                sendFailStatus: 'error' + err
+                sendStatus: 'error' + err
             })
+            
         }
 
         console.log('success')
         res.send({
-            sendFailStatus: 'succeed!'
+            sendStatus: 'succeed!',
+            dirLoc: __dirname + '/public/out.jpeg'
         })
     })
 
