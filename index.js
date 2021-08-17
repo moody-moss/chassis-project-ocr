@@ -66,17 +66,51 @@ app.post('/post-base64', (req, res) => {
             res.send({
                 sendStatus: 'error' + err
             })
-            
+
         }
 
-        console.log('success')
-        res.send({
-            sendStatus: 'succeed!',
-            dirLoc: __dirname + '/public/out.jpeg'
-        })
+        // console.log('success')
+        // res.send({
+        //     sendStatus: 'succeed!',
+        //     dirLoc: __dirname + '/public/out.jpeg'
+        // })
+
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "text/plain");
+
+        var apikey = '2065cf6e9188957'
+        var url = 'https://qwe-1.herokuapp.com/out.jpeg'
+        //var OCREngine = 2
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        // https://sr-shq-vm.herokuapp.com/value || http://localhost:9000/value || &OCREngine=${OCREngine}
+        fetch(`https://api.ocr.space/parse/imageurl?apikey=${apikey}&url=${url}`, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result.ParsedResults[0].ParsedText)
+                res.send({
+                    sendStatus: 'succeed',
+                    ocrValue: result.ParsedResults[0].ParsedText
+                })
+            })
+            .catch(error => {
+                console.log('error', error)
+                res.send({
+                    ocrValue: 'pls capture again'
+                })
+            });
+
     })
 
 })
+
+const OCRscpace
+
 
 app.use('/static', express.static(path.join(__dirname, '/'))) //https://qwe-1.herokuapp.com/static/browser.html
 
