@@ -109,8 +109,6 @@ app.post('/post-base64', (req, res) => {
 
 })
 
-const OCRscpace
-
 
 app.use('/static', express.static(path.join(__dirname, '/'))) //https://qwe-1.herokuapp.com/static/browser.html
 
