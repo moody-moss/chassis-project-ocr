@@ -19,7 +19,7 @@ app.use(compression()) // compress HTTP request (compress all routes) [reduce th
 
 app.use(express.text({ limit: '50mb' }))
 
-app.use(cors({ origin: '*' }))
+app.use(cors({ origin: 'http://localhost:3000/' }))
 app.options('*', cors()) // enable preflight across-the-board --> include bfeore other route
 
 
