@@ -87,6 +87,8 @@ var options = {
     OCREngine: 2
 }
 
+app.use(express.json())
+
 app.get('/tea', (req, res) => {
     //res.sendFile(process.cwd() + '/index.html')
     res.send({
@@ -94,7 +96,7 @@ app.get('/tea', (req, res) => {
     })
 })
 
-app.use(express.json())
+
 app.get('/value', (req, res) => {
 
     const imageFilePath = `https://qwe-1.herokuapp.com/out.jpeg`
