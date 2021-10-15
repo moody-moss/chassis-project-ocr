@@ -19,8 +19,8 @@ const app = express()
 
 app.use(express.text({ limit: '50mb' }))
 
-app.use(cors({ origin: '*' }))
-app.options('*', cors()) // enable preflight across-the-board --> include bfeore other route
+//app.use(cors({ origin: '*' }))
+//app.options('*', cors()) // enable preflight across-the-board --> include bfeore other route
 
 app.get('/tea', (req, res) => {
     //res.sendFile(process.cwd() + '/index.html')
