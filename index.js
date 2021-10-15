@@ -14,8 +14,8 @@ const zxing = require('./zxing-umd-browser.js')
 
 const app = express()
 
-//app.use(helmet()) // Security
-//app.use(compression()) // compress HTTP request (compress all routes) [reduce the time required for the client to get and load the page from server]
+app.use(helmet()) // Security
+app.use(compression()) // compress HTTP request (compress all routes) [reduce the time required for the client to get and load the page from server]
 
 app.use(express.text({ limit: '50mb' }))
 
@@ -110,6 +110,13 @@ app.get('/value', (req, res) => {
             })
 
         })
+})
+
+app.get('/testCors', (req, res) => {
+    //res.sendFile(process.cwd() + '/index.html')
+    res.send({
+        status: '🥦'
+    })
 })
 
 app.get('/data-matrix', (req, res) => {
