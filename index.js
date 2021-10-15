@@ -18,8 +18,8 @@ app.use(helmet()) // Security
 app.use(compression()) // compress HTTP request (compress all routes) [reduce the time required for the client to get and load the page from server]
 
 app.use(express.text({ limit: '50mb' }))
-//https://view.vuforia.com
-app.use(cors({ origin: ['https://smartm-dev.es.thingworx.com','https://dashboard.heroku.com/'] }))
+//https://view.vuforia.com  https://smartm-dev.es.thingworx.com
+app.use(cors({ origin: ['https://dashboard.heroku.com/'] }))
 app.options('*', cors()) // enable preflight across-the-board --> include bfeore other route
 
 
