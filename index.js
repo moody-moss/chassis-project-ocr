@@ -29,13 +29,6 @@ app.use(express.static('public')) // Serve resources from public folder
 
 app.use('/images', express.static(path.join(__dirname, '/public')))
 
-app.get('/tea', (req, res) => {
-    //res.sendFile(process.cwd() + '/index.html')
-    res.send({
-        haluu: 'PlsGett'
-    })
-})
-
 // Post base64 string
 app.post('/post-base64', (req, res) => {
 
@@ -93,6 +86,13 @@ var options = {
     isOverlayRequired: true,
     OCREngine: 2
 }
+
+app.get('/tea', (req, res) => {
+    //res.sendFile(process.cwd() + '/index.html')
+    res.send({
+        haluu: 'PlsGett'
+    })
+})
 
 app.use(express.json())
 app.get('/value', (req, res) => {
