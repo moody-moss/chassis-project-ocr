@@ -27,14 +27,14 @@ app.use(express.text({ limit: '50mb' }))
 // Setting middleware
 app.use(express.static('public')) // Serve resources from public folder
 
+app.use('/images', express.static(path.join(__dirname, '/public')))
+
 app.get('/tea', (req, res) => {
     //res.sendFile(process.cwd() + '/index.html')
     res.send({
         haluu: 'PlsGett'
     })
 })
-
-app.use('/images', express.static(path.join(__dirname, '/public')))
 
 // Post base64 string
 app.post('/post-base64', (req, res) => {
