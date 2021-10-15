@@ -89,14 +89,6 @@ var options = {
 
 app.use(express.json())
 
-app.get('/tea', (req, res) => {
-    //res.sendFile(process.cwd() + '/index.html')
-    res.send({
-        haluu: 'PlsGett'
-    })
-})
-
-
 app.get('/value', (req, res) => {
 
     const imageFilePath = `https://qwe-1.herokuapp.com/out.jpeg`
@@ -115,6 +107,15 @@ app.get('/value', (req, res) => {
 
         })
 })
+
+
+app.get('/tea', (req, res) => {
+    //res.sendFile(process.cwd() + '/index.html')
+    res.send({
+        haluu: 'PlsGett'
+    })
+})
+
 
 app.get('/testCors', (req, res) => {
     //res.sendFile(process.cwd() + '/index.html')
