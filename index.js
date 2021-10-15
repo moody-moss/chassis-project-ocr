@@ -22,15 +22,17 @@ app.use(express.text({ limit: '50mb' }))
 //app.use(cors({ origin: '*' }))
 //app.options('*', cors()) // enable preflight across-the-board --> include bfeore other route
 
+
+
+// Setting middleware
+app.use(express.static('public')) // Serve resources from public folder
+
 app.get('/tea', (req, res) => {
     //res.sendFile(process.cwd() + '/index.html')
     res.send({
         haluu: 'PlsGett'
     })
 })
-
-// Setting middleware
-app.use(express.static('public')) // Serve resources from public folder
 
 app.use('/images', express.static(path.join(__dirname, '/public')))
 
